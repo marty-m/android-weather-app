@@ -6,33 +6,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="25dp"
-                android:background="@drawable/fieldhousebackground">
+                android:background="@color/teal_200">
 
     <RelativeLayout android:id="@+id/mainContainer" android:layout_width="match_parent"
                     android:layout_height="match_parent" android:visibility="visible">
 
-        <LinearLayout
-            android:id="@+id/searchContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/editTextTextPostalAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="67dp"
-                android:layout_marginTop="151dp"
-                android:layout_marginEnd="68dp"
-                android:layout_marginBottom="52dp"
-                android:ems="10"
-                android:inputType="textPostalAddress"
-                android:textAlignment="center"
-                tools:text="@string/searchBannerText" />
-        </LinearLayout>
-
-        <LinearLayout android:id="@+id/searchContainer" android:layout_width="match_parent"
+        <LinearLayout android:id="@+id/searchContainer2" android:layout_width="match_parent"
                       android:layout_height="wrap_content" android:orientation="vertical"
                       android:gravity="center">
             <TextView android:id="@+id/address" android:layout_width="wrap_content"
