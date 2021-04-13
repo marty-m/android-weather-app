@@ -1,9 +1,5 @@
 package com.example.weatherappfinal
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.location.Location
-import android.location.LocationManager
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View
@@ -16,32 +12,21 @@ import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class MainActivity : AppCompatActivity() {
 
-    
+    val CITY: String = "lund,se"
+    val API: String = "d4be7d07c44a9730e4af9f4a925e10c0" 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        @SuppressLint("MissingPermission")
-        val location: Location? = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-        val LONG = location!!.longitude
-        val LATI = location!!.latitude
-        val API: String = "d4be7d07c44a9730e4af9f4a925e10c0"
+        weatherTask().execute()
 
-        weatherTask()
-        
     }
 
-
-
-
-
-inner class weatherTask() : AsyncTask<String, Void, String>() {
-
-            override fun onPreExecute() {
+    inner class weatherTask() : AsyncTask<String, Void, String>() {
+        override fun onPreExecute() {
             super.onPreExecute()
             /* Showing the ProgressBar, Making the main design GONE */
             findViewById<ProgressBar>(R.id.loader).visibility = View.VISIBLE
@@ -49,13 +34,10 @@ inner class weatherTask() : AsyncTask<String, Void, String>() {
             findViewById<TextView>(R.id.errorText).visibility = View.GONE
         }
 
-           override fun doInBackground(vararg params: String?): String? {
-
-
-                var response:String?
+        override fun doInBackground(vararg params: String?): String? {
+            var response:String?
             try{
-
-                response = URL("api.openweathermap.org/data/2.5/weather?lat=${LATI}&lon=${LONG}&units=metric&appid=${API}").readText(
+                response = URL("https://api.openweathermap.org/data/2.5/weather?q=$CITY&units=metric&appid=$API").readText(
                         Charsets.UTF_8
                 )
             }catch (e: Exception){
@@ -75,7 +57,7 @@ inner class weatherTask() : AsyncTask<String, Void, String>() {
                 val weather = jsonObj.getJSONArray("weather").getJSONObject(0)
 
                 val updatedAt:Long = jsonObj.getLong("dt")
-                val updatedAtText = "Updated at: "+ SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(Date(updatedAt * 1000))
+                val updatedAtText = "Updated at: "+ SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(Date(updatedAt*1000))
                 val temp = main.getString("temp")+"°C"
                 val tempMin = "Min Temp: " + main.getString("temp_min")+"°C"
                 val tempMax = "Max Temp: " + main.getString("temp_max")+"°C"
@@ -96,8 +78,8 @@ inner class weatherTask() : AsyncTask<String, Void, String>() {
                 findViewById<TextView>(R.id.temp).text = temp
                 findViewById<TextView>(R.id.temp_min).text = tempMin
                 findViewById<TextView>(R.id.temp_max).text = tempMax
-                findViewById<TextView>(R.id.sunrise).text = SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(sunrise * 1000))
-                findViewById<TextView>(R.id.sunset).text = SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(sunset * 1000))
+                findViewById<TextView>(R.id.sunrise).text = SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(sunrise*1000))
+                findViewById<TextView>(R.id.sunset).text = SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(sunset*1000))
                 findViewById<TextView>(R.id.wind).text = windSpeed
                 findViewById<TextView>(R.id.pressure).text = pressure
                 findViewById<TextView>(R.id.humidity).text = humidity
