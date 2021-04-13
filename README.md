@@ -1,4 +1,5 @@
 # weatherappFINAL
 
 Static location weather app location for CAS :)
-https://user-images.githubusercontent.com/24620821/114611146-01df2100-9ca1-11eb-8463-5ac731651182.gif
+![2021-04-13-21-38-41](https://user-images.githubusercontent.com/24620821/114611253-1f13ef80-9ca1-11eb-9dd3-7616fc73ba79.gif)
+
